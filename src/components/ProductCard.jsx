@@ -1,6 +1,21 @@
 import { Star } from "lucide-react";
+import { useCart } from "../context/CartContext";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate();
+  const { dispatch } = useCart();
+
+  const handleAddToCart = () => {
+    dispatch({ type: "ADD_TO_CART", payload: product });
+    toast.success(`${product.title}  added to cart`);
+  };
+
+  const handleViewDetails = () => {
+    navigate(`/product/${product.id}`);
+  };
+
   return (
     // <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     <div
@@ -44,10 +59,16 @@ const ProductCard = ({ product }) => {
         </span>
       </div>
       <div className="flex items-center gap-5">
-        <button className="mt-auto w-1/2 p-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors shadow-sm hover:shadow-md">
+        <button
+          onClick={handleAddToCart}
+          className="mt-auto w-1/2 p-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors shadow-sm hover:shadow-md"
+        >
           Add to Cart
         </button>
-        <button className="mt-auto w-1/2 p-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors shadow-sm hover:shadow-md">
+        <button
+          onClick={handleViewDetails}
+          className="mt-auto w-1/2 p-2 cursor-pointer bg-green-600 hover:bg-green-700 text-white py-2 rounded-md transition-colors shadow-sm hover:shadow-md"
+        >
           Details
         </button>
       </div>

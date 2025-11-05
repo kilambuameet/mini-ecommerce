@@ -58,7 +58,7 @@ const ProductList = () => {
   // Error state
   if (error) {
     return (
-      <div className="flex flex-col justify-center items-center h-screen space-y-4">
+      <div className="flex flex-col justify-center items-center mx-auto space-y-4">
         <p className="text-red-500 text-lg font-semibold">{error}</p>
         <button
           onClick={getData}

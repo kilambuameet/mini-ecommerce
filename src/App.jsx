@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import HomePage from "./pages/Homepage";
 import CartPage from "./pages/CartPage";
@@ -10,6 +10,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 function App() {
   return (
     <>
+    
       <CartProvider>
         {" "}
         <Router>

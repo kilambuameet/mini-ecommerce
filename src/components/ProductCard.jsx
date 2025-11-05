@@ -25,7 +25,8 @@ const ProductCard = ({ product }) => {
       <img
         src={product.image}
         alt={product.title}
-        className="w-full h-48 object-contain mb-4"
+        className="w-full h-48 object-contain mb-4 cursor-pointer"
+        onClick={handleViewDetails}
       />
       <div className="flex items-center mb-2">
         {[...Array(5)].map((_, i) => (
@@ -46,7 +47,12 @@ const ProductCard = ({ product }) => {
         </span>
       </div>
 
-      <h2 className="font-semibold text-lg  truncate">{product.title}</h2>
+      <h2
+        onClick={handleViewDetails}
+        className="font-semibold text-lg cursor-pointer truncate"
+      >
+        {product.title}
+      </h2>
       {/* <p className="line-clamp-3 overflow-hidden text-ellipsis mb-2 mt-1">
         {product.description}
       </p> */}
@@ -58,7 +64,7 @@ const ProductCard = ({ product }) => {
           {product.category}
         </span>
       </div>
-      <div className="flex items-center gap-5">
+      <div className="flex flex-col sm:flex-row items-center gap-3 mt-3">
         <button
           onClick={handleAddToCart}
           className="mt-auto w-1/2 p-2 cursor-pointer bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition-colors shadow-sm hover:shadow-md"

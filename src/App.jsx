@@ -5,6 +5,7 @@ import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
 import { Toaster } from "react-hot-toast";
 import ProductDetailPage from "./components/ProductDetailPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/cart" element={<CartPage />} />
               <Route path="/product/:id" element={<ProductDetailPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
             </Routes>
           </div>
         </Router>

@@ -1,11 +1,13 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchProductById } from "../services/api";
 import { useCart } from "../context/CartContext";
+import { Star } from "lucide-react";
+import toast from "react-hot-toast";
 
 const ProductDetailPage = () => {
   const { id } = useParams(); // get product ID from URL
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -28,6 +30,7 @@ const ProductDetailPage = () => {
 
   const handleAddToCart = () => {
     dispatch({ type: "ADD_TO_CART", payload: product });
+    toast.success(`${product.title} added to cart`);
   };
 
   if (loading) {
@@ -46,9 +49,9 @@ const ProductDetailPage = () => {
     );
   }
 
-  const handleBack = () => {
-    navigate(-1);
-  };
+  // const handleBack = () => {
+  //   navigate(-1);
+  // };
 
   return (
     <div className="container mx-auto px-6 py-10 grid md:grid-cols-2 gap-10">
@@ -69,9 +72,28 @@ const ProductDetailPage = () => {
           {product.category}
         </p>
 
-        <p className="text-gray-700 leading-relaxed mb-6 capitalize">
+        <p className="text-gray-700 leading-relaxed mb-4 capitalize">
           {product.description}
         </p>
+
+        <div className="flex items-center mb-2">
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`h-4 w-4 ${
+                i < Math.round(product.rating.rate)
+                  ? "text-yellow-400"
+                  : "text-gray-300"
+              }`}
+            />
+          ))}
+          <span className="ml-2 text-gray-700 font-medium">
+            {product.rating.rate}
+          </span>
+          <span className="ml-1 text-gray-500 text-sm">
+            ({product.rating.count} reviews)
+          </span>
+        </div>
 
         <div className="flex items-center gap-2 mb-6">
           <span className="text-2xl font-bold text-blue-600">
@@ -81,12 +103,12 @@ const ProductDetailPage = () => {
         </div>
 
         <div className="flex items-center gap-4">
-          <button
-            onClick={handleBack}
-            className="border border-blue-600 hover:bg-blue-700 hover:text-white px-6 py-2 cursor-pointer rounded-full transition shadow hover:shadow-lg"
-          >
-            Back
-          </button>
+          <Link to="/">
+            <button className="border border-blue-600 hover:bg-blue-700 hover:text-white px-6 py-2 cursor-pointer rounded-full transition shadow hover:shadow-lg">
+              Back
+            </button>
+          </Link>
+
           <button
             onClick={handleAddToCart}
             className="bg-blue-600 hover:bg-blue-700 border border-blue-600 cursor-pointer text-white px-6 py-2 rounded-full transition shadow hover:shadow-lg"
